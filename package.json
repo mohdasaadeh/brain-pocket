@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node app.js",
     "server": "nodemon app.js",
-    "frontend": "npm run start --prefix frontend",
+    "frontend": "npm run start --prefix brain-pocket-frontend",
     "dev": "concurrently \"npm run server\" \"npm run frontend\""
   },
   "keywords": [],
