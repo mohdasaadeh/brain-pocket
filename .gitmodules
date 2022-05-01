@@ -1,0 +1,3 @@
+[submodule "brain-pocket-frontend"]
+	path = brain-pocket-frontend
+	url = https://github.com/mohdasaadeh/brain-pocket-frontend.git
