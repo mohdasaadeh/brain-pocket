@@ -13,4 +13,8 @@ MainUserRouter.get(
   require("./getGoogleAuthCallback")
 );
 
+MainUserRouter.get("/current_user", require("./getCurrentUser"));
+
+MainUserRouter.get("/logout", require("./logout"));
+
 module.exports = MainUserRouter;
