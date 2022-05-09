@@ -5,7 +5,7 @@ const getCurrentUser = (req, res, next) => {
     return res.send(id);
   }
 
-  res.send(null);
+  res.send("out");
 };
 
 module.exports = getCurrentUser;
