@@ -6,7 +6,7 @@ const WordsRelation = require("../../../models/WordsRelation");
 const getLists = async (req, res, next) => {
   const userId = req.user.id;
 
-  let lists = await ListRelation.find({ userId }, "listId")
+  let lists = await ListRelation.find({ userId, active: true }, "listId")
     .populate("listId")
     .lean();
 
@@ -15,6 +15,7 @@ const getLists = async (req, res, next) => {
       const words = await WordsRelation.find({
         userId,
         listId: list.listId._id,
+        active: true,
       });
 
       list.wordsCount = words.length;
