@@ -1,25 +1,12 @@
-const List = require("../../../models/List");
+const postListFunc = require("./helpers/postListFunc");
 
 const postList = async (req, res, next) => {
   const list = req.body;
+  const userId = req.user.id;
 
-  const isFound = await List.findOne(list);
+  const listRelation = await postListFunc(list, userId);
 
-  let newList;
-
-  if (isFound && isFound.active) {
-    newList = isFound;
-  } else if (isFound && !isFound.active) {
-    newList = await List.findByIdAndUpdate(
-      isFound._id,
-      { active: true },
-      { new: true }
-    );
-  } else {
-    newList = await new List(list).save();
-  }
-
-  res.send(newList);
+  res.send(listRelation);
 };
 
 module.exports = postList;

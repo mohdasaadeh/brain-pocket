@@ -7,16 +7,24 @@ const getList = async (req, res, next) => {
   const { id } = req.params;
   const userId = req.user.id;
 
-  const isListActive = await ListRelation.findOne({ listId: id, active: true });
-
-  if (!isListActive) return next("You didn't add this list!");
-
-  const words = await WordsRelation.find({ listId: id, userId, active: true })
+  const list = await ListRelation.findOne(
+    { _id: id, userId, active: true },
+    "listId"
+  )
     .populate("listId")
-    .populate("firstWordId")
-    .populate("secondWordId");
+    .lean();
 
-  res.send(words);
+  if (!list) return next("You didn't add this list!");
+
+  const words = await WordsRelation.find({
+    listId: list.listId._id,
+    userId,
+    active: true,
+  });
+
+  list.wordsCount = words.length;
+
+  res.send(list);
 };
 
 module.exports = getList;

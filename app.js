@@ -7,6 +7,9 @@ mongoose.connect("mongodb://localhost:27017/brain-pocket", () => {
   console.log("Connected with MongoDB on port 27017 >>>");
 });
 
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
 if (process.env.NODE_ENV !== "production") {
   require("dotenv").config();
 } else {

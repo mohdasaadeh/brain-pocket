@@ -1,16 +1,16 @@
-const List = require("../../../models/List");
+const deleteListFunc = require("./helpers/deleteListFunc");
+const postListFunc = require("./helpers/postListFunc");
 
 const putList = async (req, res, next) => {
   const list = req.body;
   const { id } = req.params;
+  const userId = req.user.id;
 
-  list.lastEditedAt = Date.now;
+  await deleteListFunc(userId, id);
 
-  const editedList = await List.findByIdAndUpdate(id, list, {
-    new: true,
-  });
+  const listRelation = await postListFunc(list, userId);
 
-  res.send(editedList);
+  res.send(listRelation);
 };
 
 module.exports = putList;

@@ -8,6 +8,7 @@ const getLists = async (req, res, next) => {
 
   let lists = await ListRelation.find({ userId, active: true }, "listId")
     .populate("listId")
+    .sort({ createdAt: "desc" })
     .lean();
 
   lists = await Promise.all(
