@@ -11,6 +11,7 @@ const wordsRelationSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "Word",
   },
+  thirdWordId: { type: Schema.Types.ObjectId, ref: "Word" },
   listId: {
     type: Schema.Types.ObjectId,
     ref: "List",

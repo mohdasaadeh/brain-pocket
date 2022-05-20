@@ -44,10 +44,11 @@ const asyncFunc = async () => {
 
   const fetchedWords = await Word.find({});
 
-  for (let i = 0; i < fetchedWords.length; i += 2) {
+  for (let i = 0; i < fetchedWords.length; i += 3) {
     const wordsRelation = {
       firstWordId: fetchedWords[i],
       secondWordId: fetchedWords[i + 1],
+      thirdWordId: fetchedWords[i + 2],
       userId,
       active: true,
     };
