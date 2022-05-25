@@ -7,7 +7,8 @@
     "start": "node app.js",
     "server": "nodemon app.js",
     "frontend": "npm run start --prefix brain-pocket-frontend",
-    "dev": "concurrently \"npm run server\" \"npm run frontend\""
+    "dev": "concurrently \"npm run server\" \"npm run frontend\"",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix brain-pocket-frontend && npm run build --prefix brain-pocket-frontend"
   },
   "keywords": [],
   "author": "",

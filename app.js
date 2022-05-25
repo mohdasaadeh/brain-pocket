@@ -2,9 +2,13 @@ const express = require("express");
 const mongoose = require("mongoose");
 const path = require("path");
 
+const mongoUrl =
+  process.env.MONGODB_ATLAS || "mongodb://localhost:27017/brain-pocket";
+const port = process.env.PORT || 5000;
+
 const app = express();
-mongoose.connect("mongodb://localhost:27017/brain-pocket", () => {
-  console.log("Connected with MongoDB on port 27017 >>>");
+mongoose.connect(mongoUrl, () => {
+  console.log("Connected with MongoDB >>>");
 });
 
 app.use(express.urlencoded({ extended: true }));
@@ -26,6 +30,6 @@ require("./services/cookieSession")(app);
 require("./services/passport")(app);
 require("./routes")(app);
 
-app.listen(5000, () => {
+app.listen(port, () => {
   console.log("The server side is listening to port 5000 >>>");
 });
