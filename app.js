@@ -9,7 +9,7 @@ const path = require("path");
 const app = express();
 
 const mongoUrl =
-  process.env.MONGODB_ATLAS || "mongodb://localhost:27017/brain-pocket";
+  "mongodb://localhost:27017/brain-pocket" || process.env.MONGODB_ATLAS;
 const port = process.env.PORT || 5000;
 
 mongoose.connect(mongoUrl, () => {
