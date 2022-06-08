@@ -1,3 +1,4 @@
+const ListRelation = require("../../../models/ListRelation");
 const deleteListFunc = require("./helpers/deleteListFunc");
 const postListFunc = require("./helpers/postListFunc");
 
@@ -6,9 +7,21 @@ const putList = async (req, res, next) => {
   const { id } = req.params;
   const userId = req.user.id;
 
-  await deleteListFunc(userId, id);
+  let listRelation = await ListRelation.findOne({ userId, _id: id }).populate(
+    "listId"
+  );
 
-  const listRelation = await postListFunc(list, userId);
+  for (let column in list) {
+    if (list[column] !== listRelation.listId[column]) {
+      await deleteListFunc(userId, id);
+
+      listRelation = await postListFunc(list, userId);
+
+      res.send(listRelation);
+
+      return;
+    }
+  }
 
   res.send(listRelation);
 };
