@@ -1,20 +1,22 @@
 const MainUserRouter = require("express").Router();
 const passport = require("passport");
 
+const errorHandler = require("../../utils/errorHandler");
+
 MainUserRouter.get(
   "/login/google",
   passport.authenticate("google", { scope: ["profile", "email"] }),
-  require("./getGoogleAuth")
+  errorHandler(require("./getGoogleAuth"))
 );
 
 MainUserRouter.get(
   "/login/google/callback",
   passport.authenticate("google", { failureRedirect: "/login" }),
-  require("./getGoogleAuthCallback")
+  errorHandler(require("./getGoogleAuthCallback"))
 );
 
-MainUserRouter.get("/current_user", require("./getCurrentUser"));
+MainUserRouter.get("/current_user", errorHandler(require("./getCurrentUser")));
 
-MainUserRouter.get("/logout", require("./logout"));
+MainUserRouter.get("/logout", errorHandler(require("./logout")));
 
 module.exports = MainUserRouter;

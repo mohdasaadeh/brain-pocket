@@ -33,6 +33,10 @@ if (process.env.NODE_ENV === "production") {
   });
 }
 
+app.use((error, req, res, next) => {
+  res.status(500).send(error);
+});
+
 app.listen(port, () => {
   console.log(`The server side is listening to port ${port} >>>`);
 });

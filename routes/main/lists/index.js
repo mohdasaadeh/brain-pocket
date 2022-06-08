@@ -1,13 +1,18 @@
 const MainListsRouter = require("express").Router();
 
-MainListsRouter.get("/", require("./getLists"));
-MainListsRouter.get("/:id", require("./getList"));
-MainListsRouter.get("/:id/original_words", require("./getOriginalWords"));
+const errorHandler = require("../../utils/errorHandler");
 
-MainListsRouter.post("/new", require("./postList"));
+MainListsRouter.get("/", errorHandler(require("./getLists")));
+MainListsRouter.get("/:id", errorHandler(require("./getList")));
+MainListsRouter.get(
+  "/:id/original_words",
+  errorHandler(require("./getOriginalWords"))
+);
 
-MainListsRouter.put("/:id/edit", require("./putList"));
+MainListsRouter.post("/new", errorHandler(require("./postList")));
 
-MainListsRouter.delete("/:id/delete", require("./deleteList"));
+MainListsRouter.put("/:id/edit", errorHandler(require("./putList")));
+
+MainListsRouter.delete("/:id/delete", errorHandler(require("./deleteList")));
 
 module.exports = MainListsRouter;
