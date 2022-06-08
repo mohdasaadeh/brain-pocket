@@ -1,6 +1,7 @@
 const MainListsRouter = require("express").Router();
 
 const errorHandler = require("../../utils/errorHandler");
+const { listValidator } = require("../../utils/validator");
 
 MainListsRouter.get("/", errorHandler(require("./getLists")));
 MainListsRouter.get("/:id", errorHandler(require("./getList")));
@@ -9,9 +10,17 @@ MainListsRouter.get(
   errorHandler(require("./getOriginalWords"))
 );
 
-MainListsRouter.post("/new", errorHandler(require("./postList")));
+MainListsRouter.post(
+  "/new",
+  listValidator,
+  errorHandler(require("./postList"))
+);
 
-MainListsRouter.put("/:id/edit", errorHandler(require("./putList")));
+MainListsRouter.put(
+  "/:id/edit",
+  listValidator,
+  errorHandler(require("./putList"))
+);
 
 MainListsRouter.delete("/:id/delete", errorHandler(require("./deleteList")));
 
