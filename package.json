@@ -8,7 +8,12 @@
     "server": "nodemon app.js",
     "frontend": "npm run start --prefix brain-pocket-frontend",
     "dev": "concurrently \"npm run server\" \"npm run frontend\"",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix brain-pocket-frontend && npm run build --prefix brain-pocket-frontend"
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix brain-pocket-frontend && npm run build --prefix brain-pocket-frontend",
+    "lint": "eslint --ignore-path .gitignore --ext .js,.ts,.tsx .",
+    "prettier": "prettier --ignore-path .gitignore \"**/*.+(js|json|ts|tsx)\"",
+    "format": "npm run prettier -- --write",
+    "check-format": "npm run prettier -- --list-different",
+    "validate": "npm-run-all --parallel check-format lint"
   },
   "keywords": [],
   "author": "",
