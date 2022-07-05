@@ -6,7 +6,7 @@ const listValidator = async (req, res, next) => {
   const joiSchema = Joi.object({
     title: Joi.string().min(3).max(30).required(),
     firstColumnTitle: Joi.string().min(3).max(30).required(),
-    secondColumnTitle: Joi.string().min(3).max(30).required(),
+    secondColumnTitle: Joi.string().min(3).max(30).required()
   });
 
   try {
@@ -21,5 +21,5 @@ const listValidator = async (req, res, next) => {
 };
 
 module.exports = {
-  listValidator,
+  listValidator
 };

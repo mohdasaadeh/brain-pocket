@@ -10,23 +10,27 @@ passport.use(
     {
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: "/api/user/login/google/callback",
+      callbackURL: "/api/user/login/google/callback"
     },
     async (accessToken, refreshToken, profile, done) => {
-      const { id, displayName, emails } = profile;
+      try {
+        const { id, displayName, emails } = profile;
 
-      let user = await User.findOne({ googleId: id });
+        let user = await User.findOne({ googleId: id });
 
-      if (user) return done(null, user);
+        if (user) return done(null, user);
 
-      user = await new User({
-        googleId: id,
-        username: displayName,
-        email: emails[0].value,
-        active: true,
-      }).save();
+        user = await new User({
+          googleId: id,
+          username: displayName,
+          email: emails[0].value,
+          active: true
+        }).save();
 
-      return done(null, user);
+        return done(null, user);
+      } catch (error) {
+        return done(error, null);
+      }
     }
   )
 );
@@ -36,9 +40,13 @@ passport.serializeUser((user, done) => {
 });
 
 passport.deserializeUser(async (id, done) => {
-  const user = await User.findById(id);
+  try {
+    const user = await User.findById(id);
 
-  if (user) return done(null, user);
+    if (user) return done(null, user);
+  } catch (error) {
+    return done(error, null);
+  }
 });
 
 module.exports = function (app) {

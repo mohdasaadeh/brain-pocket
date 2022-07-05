@@ -30,7 +30,7 @@ const postListFunc = async (list, userId) => {
     await new ListRelation({
       listId: newList._id,
       userId,
-      active: true,
+      active: true
     }).save();
 
     listRelation = await ListRelation.findOne(
@@ -44,12 +44,10 @@ const postListFunc = async (list, userId) => {
   const words = await WordsRelation.find({
     listId: listRelation.listId._id,
     userId,
-    active: true,
+    active: true
   });
 
   listRelation.wordsCount = words.length;
-
-  console.log(listRelation);
 
   return listRelation;
 };

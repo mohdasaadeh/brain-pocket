@@ -14,12 +14,10 @@ const getList = async (req, res, next) => {
     .populate("listId")
     .lean();
 
-  if (!list) return next("You didn't add this list!");
-
   const words = await WordsRelation.find({
     listId: list.listId._id,
     userId,
-    active: true,
+    active: true
   });
 
   list.wordsCount = words.length;

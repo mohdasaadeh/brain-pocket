@@ -1,4 +1,4 @@
-const errorHandler = (fn) => {
+const errorHandler = fn => {
   return async (req, res, next) => {
     try {
       await fn(req, res, next);

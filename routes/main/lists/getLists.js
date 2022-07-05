@@ -12,11 +12,11 @@ const getLists = async (req, res, next) => {
     .lean();
 
   lists = await Promise.all(
-    lists.map(async (list) => {
+    lists.map(async list => {
       const words = await WordsRelation.find({
         userId,
         listId: list.listId._id,
-        active: true,
+        active: true
       });
 
       list.wordsCount = words.length;

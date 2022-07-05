@@ -7,12 +7,12 @@ const getOriginalWords = async (req, res, next) => {
 
   const listRelation = await ListRelation.findOne({
     _id: listRelationId,
-    active: true,
+    active: true
   });
   const words = await WordsRelation.find({
     listId: listRelation.listId,
     userId,
-    active: true,
+    active: true
   })
     .populate("firstWordId")
     .populate("secondWordId")
