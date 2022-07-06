@@ -17,10 +17,10 @@ const asyncFunc = async () => {
   await ListRelation.deleteMany({});
   await WordsRelation.deleteMany({});
 
-  const userId = "626806900973036d4161ce6b";
+  const userId = "62a8be5ddc0ac9b2a042e5aa";
 
   await Promise.all(
-    lists.map(async (list) => {
+    lists.map(async list => {
       list.userId = userId;
       list.active = true;
 
@@ -29,13 +29,13 @@ const asyncFunc = async () => {
       return await new ListRelation({
         listId: list,
         userId,
-        active: true,
+        active: true
       }).save();
     })
   );
 
   await Promise.all(
-    words.map(async (word) => {
+    words.map(async word => {
       word.active = true;
 
       return await new Word(word).save();
@@ -50,7 +50,7 @@ const asyncFunc = async () => {
       secondWordId: fetchedWords[i + 1],
       thirdWordId: fetchedWords[i + 2],
       userId,
-      active: true,
+      active: true
     };
 
     if (fetchedWords[i].columnTitle === "German") {
