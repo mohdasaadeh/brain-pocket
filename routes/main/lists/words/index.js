@@ -7,6 +7,11 @@ MainListsWordsRouter.get(
   errorHandler(require("./getOriginalWords"))
 );
 
+MainListsWordsRouter.post(
+  "/:listRelationId/original_words/new",
+  errorHandler(require("./postOriginalWord"))
+);
+
 MainListsWordsRouter.delete(
   "/:listRelationId/original_words/:id/delete",
   errorHandler(require("./deleteOriginalWords"))

@@ -21,6 +21,7 @@ const wordsRelationSchema = new Schema({
     ref: "User"
   },
   createdAt: { type: Date, default: Date.now },
+  editedAt: { type: Date, default: Date.now },
   active: Boolean
 });
 
