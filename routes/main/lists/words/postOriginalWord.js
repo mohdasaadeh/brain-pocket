@@ -3,7 +3,7 @@ const Word = require("../../../../models/Word");
 const WordsRelation = require("../../../../models/WordsRelation");
 
 const wordFinder = async (columnTitle, columnWord, status) => {
-  return await Word.find({
+  return await Word.findOne({
     word: columnWord,
     ColumnTitle: columnTitle,
     active: status
@@ -33,7 +33,7 @@ const wordAdder = async (userId, columnTitle, columnWord) => {
       columnTitle: columnTitle,
       userId,
       active: true
-    });
+    }).save();
   }
 
   return word;
@@ -47,7 +47,7 @@ const wordRelationFinder = async (
   thirdWord,
   status
 ) => {
-  return await WordsRelation.find({
+  return await WordsRelation.findOne({
     userId,
     listRelationId,
     firstWordId: firstWord._id,
@@ -63,11 +63,12 @@ const postOriginalWord = async (req, res, next) => {
   const { listRelationId } = req.params;
   const { firstColumnWord, secondColumnWord, thirdColumnWord } = req.body;
 
+  const listRelation = await ListRelation.findById(listRelationId).populate(
+    "listId"
+  );
+
   const { firstColumnTitle, secondColumnTitle, thirdColumnTitle } =
-    await ListRelation.findById(
-      listRelationId,
-      "listId.firstColumnTitle listId.secondColumnTitle listId.thirdColumnTitle"
-    ).populate("listId");
+    listRelation.listId;
 
   const firstWord = await wordAdder(userId, firstColumnTitle, firstColumnWord);
   const secondWord = await wordAdder(
@@ -110,7 +111,7 @@ const postOriginalWord = async (req, res, next) => {
         listRelationId,
         userId,
         active: true
-      });
+      }).save();
     }
   }
 
