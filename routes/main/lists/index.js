@@ -5,10 +5,6 @@ const { listValidator } = require("../../utils/validator");
 
 MainListsRouter.get("/", errorHandler(require("./getLists")));
 MainListsRouter.get("/:id", errorHandler(require("./getList")));
-MainListsRouter.get(
-  "/:id/original_words",
-  errorHandler(require("./getOriginalWords"))
-);
 
 MainListsRouter.post(
   "/new",
@@ -23,5 +19,7 @@ MainListsRouter.put(
 );
 
 MainListsRouter.delete("/:id/delete", errorHandler(require("./deleteList")));
+
+MainListsRouter.use("/", require("./words"));
 
 module.exports = MainListsRouter;

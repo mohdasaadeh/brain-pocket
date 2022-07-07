@@ -3,11 +3,12 @@ require("../../../models/Word");
 const ListRelation = require("../../../models/ListRelation");
 const WordsRelation = require("../../../models/WordsRelation");
 
+// eslint-disable-next-line no-unused-vars
 const getList = async (req, res, next) => {
   const { id } = req.params;
   const userId = req.user.id;
 
-  const list = await ListRelation.findOne(
+  const listRelation = await ListRelation.findOne(
     { _id: id, userId, active: true },
     "listId"
   )
@@ -15,14 +16,14 @@ const getList = async (req, res, next) => {
     .lean();
 
   const words = await WordsRelation.find({
-    listId: list.listId._id,
+    listRelationId: listRelation._id,
     userId,
     active: true
   });
 
-  list.wordsCount = words.length;
+  listRelation.wordsCount = words.length;
 
-  res.send(list);
+  res.send(listRelation);
 };
 
 module.exports = getList;

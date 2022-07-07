@@ -8,10 +8,12 @@ const deleteListFunc = async (userId, id) => {
     { new: true }
   );
 
-  const listRelations = await ListRelation.find({ _id: id });
+  const { listId } = listRelation;
+
+  const listRelations = await ListRelation.find({ listId });
 
   if (!listRelations) {
-    await List.findByIdAndUpdate(id, { active: false });
+    await List.findByIdAndUpdate(listId, { active: false });
   }
 
   return listRelation;

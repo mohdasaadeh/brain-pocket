@@ -2,6 +2,7 @@ const ListRelation = require("../../../models/ListRelation");
 const deleteListFunc = require("./helpers/deleteListFunc");
 const postListFunc = require("./helpers/postListFunc");
 
+// eslint-disable-next-line no-unused-vars
 const putList = async (req, res, next) => {
   const list = req.body;
   const { id } = req.params;

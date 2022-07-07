@@ -42,7 +42,7 @@ const postListFunc = async (list, userId) => {
   }
 
   const words = await WordsRelation.find({
-    listId: listRelation.listId._id,
+    listRelationId: listRelation._id,
     userId,
     active: true
   });

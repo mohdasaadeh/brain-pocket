@@ -1,5 +1,6 @@
 const postListFunc = require("./helpers/postListFunc");
 
+// eslint-disable-next-line no-unused-vars
 const postList = async (req, res, next) => {
   const list = req.body;
   const userId = req.user.id;

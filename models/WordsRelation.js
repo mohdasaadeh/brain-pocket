@@ -5,23 +5,23 @@ const { Schema } = mongoose;
 const wordsRelationSchema = new Schema({
   firstWordId: {
     type: Schema.Types.ObjectId,
-    ref: "Word",
+    ref: "Word"
   },
   secondWordId: {
     type: Schema.Types.ObjectId,
-    ref: "Word",
+    ref: "Word"
   },
   thirdWordId: { type: Schema.Types.ObjectId, ref: "Word" },
-  listId: {
+  listRelationId: {
     type: Schema.Types.ObjectId,
-    ref: "List",
+    ref: "ListRelation"
   },
   userId: {
     type: Schema.Types.ObjectId,
-    ref: "User",
+    ref: "User"
   },
   createdAt: { type: Date, default: Date.now },
-  active: Boolean,
+  active: Boolean
 });
 
 const WordsRelation = mongoose.model("WordsRelation", wordsRelationSchema);

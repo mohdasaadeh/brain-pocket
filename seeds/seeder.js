@@ -54,15 +54,21 @@ const asyncFunc = async () => {
     };
 
     if (fetchedWords[i].columnTitle === "German") {
-      wordsRelation.listId = await List.findOne({ title: "German/English" });
+      wordsRelation.listRelationId = await ListRelation.findOne({
+        listId: await List.findOne({ title: "German/English" })
+      });
 
       await new WordsRelation(wordsRelation).save();
     } else if (fetchedWords[i].columnTitle === "Turkish") {
-      wordsRelation.listId = await List.findOne({ title: "Turkish/English" });
+      wordsRelation.listRelationId = await ListRelation.findOne({
+        listId: await List.findOne({ title: "Turkish/English" })
+      });
 
       await new WordsRelation(wordsRelation).save();
     } else {
-      wordsRelation.listId = await List.findOne({ title: "Spanish/English" });
+      wordsRelation.listRelationId = await ListRelation.findOne({
+        listId: await List.findOne({ title: "Spanish/English" })
+      });
 
       await new WordsRelation(wordsRelation).save();
     }
