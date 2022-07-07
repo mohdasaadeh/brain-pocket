@@ -12,6 +12,11 @@ MainListsWordsRouter.post(
   errorHandler(require("./postOriginalWord"))
 );
 
+MainListsWordsRouter.put(
+  "/:listRelationId/original_words/:id/edit",
+  errorHandler(require("./postOriginalWord"))
+);
+
 MainListsWordsRouter.delete(
   "/:listRelationId/original_words/:id/delete",
   errorHandler(require("./deleteOriginalWords"))
