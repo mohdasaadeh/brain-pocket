@@ -10,29 +10,28 @@ const deleteOriginalWords = async (req, res, next) => {
     { _id: id, userId, listRelationId },
     { active: false },
     { new: true }
-  ).lean();
+  )
+    .select("firstWordId secondWordId thirdWordId")
+    .lean();
 
-  const searchItems = ["firstWordId", "secondWordId", "thirdWordId"];
+  for (let word in wordRelation) {
+    if (word !== "_id") {
+      let wordRelations;
 
-  const words = Object.entries(wordRelation).filter(entry => {
-    return (
-      entry[searchItems[0]] || entry[searchItems[1]] || entry[searchItems[2]]
-    );
-  });
+      for (let key in wordRelation) {
+        wordRelations = await WordsRelation.findOne({
+          [key]: wordRelation[word],
+          active: true
+        });
 
-  for (let word of words) {
-    const wordId = Object.values(word)[0];
+        if (wordRelations) break;
+      }
 
-    let wordRelations;
+      console.log(wordRelations);
 
-    for (let item of searchItems) {
-      wordRelations = await WordsRelation.find({ [item]: wordId });
-
-      if (wordRelations) break;
-    }
-
-    if (!wordRelations) {
-      await Word.findByIdAndUpdate(wordId, { active: false });
+      if (!wordRelations) {
+        await Word.findByIdAndUpdate(wordRelation[word], { active: false });
+      }
     }
   }
 
