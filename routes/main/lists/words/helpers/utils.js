@@ -1,11 +1,11 @@
-const Word = require("../../../../models/Word");
-const WordsRelation = require("../../../../models/WordsRelation");
+const Word = require("../../../../../models/Word");
+const WordsRelation = require("../../../../../models/WordsRelation");
 
 const wordAdder = async (userId, columnTitle, columnWord) => {
   const wordFinder = async (columnTitle, columnWord, status) => {
     return await Word.findOne({
       word: columnWord,
-      ColumnTitle: columnTitle,
+      columnTitle: columnTitle,
       active: status
     });
   };

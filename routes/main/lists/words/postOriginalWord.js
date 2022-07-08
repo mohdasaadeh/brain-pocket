@@ -6,7 +6,11 @@ const postOriginalWord = async (req, res, next) => {
   const { listRelationId } = req.params;
   const formData = req.body;
 
-  const wordRelation = postOriginalWordFunc(userId, listRelationId, formData);
+  const wordRelation = await postOriginalWordFunc(
+    userId,
+    listRelationId,
+    formData
+  );
 
   res.send(wordRelation);
 };
