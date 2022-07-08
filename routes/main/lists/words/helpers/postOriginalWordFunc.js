@@ -2,6 +2,7 @@ const ListRelation = require("../../../../../models/ListRelation");
 const WordsRelation = require("../../../../../models/WordsRelation");
 
 const { wordAdder, wordRelationFinder } = require("./utils");
+const CustomError = require("../../../../utils/CustomError");
 
 const postOriginalWordFunc = async (userId, listRelationId, formData) => {
   const { firstColumnWord, secondColumnWord, thirdColumnWord } = formData;
@@ -29,6 +30,13 @@ const postOriginalWordFunc = async (userId, listRelationId, formData) => {
     thirdWord,
     true
   );
+
+  if (wordRelation) {
+    throw new CustomError(
+      400,
+      "The relation of the entries already exists in this list, please make a change to the entries or go back to the list."
+    );
+  }
 
   if (!wordRelation) {
     wordRelation = await wordRelationFinder(

@@ -44,7 +44,7 @@ app.use((err, req, res, next) => {
   }
 
   let clientError = err.message;
-  let clientStatus = 500;
+  let clientStatus = err.status || 500;
 
   if (err.name === "CastError") {
     clientError =
